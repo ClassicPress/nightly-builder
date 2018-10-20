@@ -65,7 +65,7 @@ pushd ClassicPress/
 		git add --all .
 		GIT_COMMITTER_NAME='ClassyBot' GIT_COMMITTER_EMAIL='bots@classicpress.net' \
 			git commit --author 'ClassyBot <bots@classicpress.net>' \
-			-m "Build $BUILD_TAG"
+			-m "Nightly migration build $BUILD_TAG"
 		git tag "$BUILD_TAG"
 		# Push the commit and the tag
 		set +x
@@ -139,7 +139,7 @@ pushd ClassicPress/
 		git add --all .
 		GIT_COMMITTER_NAME='ClassyBot' GIT_COMMITTER_EMAIL='bots@classicpress.net' \
 			git commit --author 'ClassyBot <bots@classicpress.net>' \
-			-m "Build $BUILD_TAG"
+			-m "Nightly build $BUILD_TAG"
 		git tag "$BUILD_TAG"
 
 		# Push the commit and the tag

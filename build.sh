@@ -38,9 +38,9 @@ pushd ClassicPress/
 	nvm use || nvm install
 	set -x
 
-	# Install dependencies and run the build
+	# Install dependencies and generate a nightly build
 	npm install
-	./node_modules/.bin/grunt build
+	CLASSICPRESS_NIGHTLY=true ./node_modules/.bin/grunt build
 
 	# Prepare the migration build in its own subfolder
 	# 'build/' -> 'build-migration/wordpress/'

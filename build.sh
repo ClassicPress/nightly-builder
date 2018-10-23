@@ -31,6 +31,9 @@ pushd ClassicPress/
 	git checkout origin/develop -B develop
 	rm -rf node_modules/
 
+	# Store the commit URL of the development repo
+	DEV_COMMIT_URL="https://github.com/ClassicPress/ClassicPress/commit/$(git rev-parse HEAD)"
+
 	# Set up node version
 	set +x
 	echo 'loading nvm and node'
@@ -91,7 +94,7 @@ pushd ClassicPress/
 			--data "{
 				\"tag_name\": \"$BUILD_TAG\",
 				\"target_commitish\": \"$BUILD_COMMIT\",
-				\"body\": \"Nightly migration build $BUILD_TAG. You probably don't need this, it's just for use by the migration plugin.\"
+				\"body\": \"Nightly migration build $BUILD_TAG. You probably don't need this, it's just for use by the migration plugin.\\n\\nSource commit: $DEV_COMMIT_URL\"
 			}" \
 			--output release.json \
 			--write-out '%{http_code}' \
@@ -160,7 +163,7 @@ pushd ClassicPress/
 			--data "{
 				\"tag_name\": \"$BUILD_TAG\",
 				\"target_commitish\": \"$BUILD_COMMIT\",
-				\"body\": \"Nightly build $BUILD_TAG. Use the source code zip.\"
+				\"body\": \"Nightly build $BUILD_TAG. Use the source code zip.\\n\\nSource commit: $DEV_COMMIT_URL\"
 			}" \
 			--output release.json \
 			--write-out '%{http_code}' \

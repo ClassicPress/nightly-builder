@@ -28,7 +28,7 @@ pushd ClassicPress/
 	rm -rf build/ build-migration/
 	git reset --hard
 	git fetch origin
-	git checkout origin/master -B master
+	git checkout origin/develop -B develop
 	rm -rf node_modules/
 
 	# Set up node version

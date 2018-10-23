@@ -54,7 +54,7 @@ pushd ClassicPress/
 	# the zip based on the tag.
 	pushd build-migration/
 		# Update the version string
-		perl -pi -we 's/\+build\./+migration./' wordpress/wp-includes/version.php
+		perl -pi -we 's/\+nightly\./+migration./' wordpress/wp-includes/version.php
 		BUILD_TAG=$(grep '^\$cp_version' wordpress/wp-includes/version.php | cut -d"'" -f2)
 
 		# Set up the git repository

@@ -79,7 +79,7 @@ pushd ClassicPress/
 		BUILD_FILENAME="ClassicPress-nightly-$(echo "$BUILD_TAG" | tr '+' '-').zip"
 		# HACK: `zip` is not installed on this server
 		npm install @ffflorian/jszip-cli@2.1.1
-		../node_modules/.bin/jszip-cli add --output "$BUILD_FILENAME" wordpress/
+		../node_modules/.bin/jszip-cli add --output "$BUILD_FILENAME" --level 9 wordpress/
 
 		# Create the release using the GitHub API
 		BUILD_COMMIT=$(git rev-parse HEAD)

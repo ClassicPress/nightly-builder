@@ -10,6 +10,7 @@ cd "$(dirname "$0")"
 
 . config.sh
 PUSH_URL="https://ClassyBot:${GITHUB_API_TOKEN}@github.com/ClassyBot/ClassicPress-nightly"
+NIGHTLY_KEY="A467BA67"
 
 # Show commands as they are executed
 set -x
@@ -71,7 +72,7 @@ pushd ClassicPress/
 			-m "Nightly migration build $BUILD_TAG"
 		GIT_COMMITTER_NAME='ClassyBot' GIT_COMMITTER_EMAIL='bots@classicpress.net' \
 			GIT_AUTHOR_NAME='ClassyBot' GIT_AUTHOR_EMAIL='bots@classicpress.net' \
-			git tag -u 0783B23F "$BUILD_TAG" -m "Nightly migration build tag $BUILD_TAG"
+			git tag -u "$NIGHTLY_KEY" "$BUILD_TAG" -m "Nightly migration build tag $BUILD_TAG"
 		# Push the commit and the tag
 		set +x
 		echo "+ git push origin migration"
@@ -147,7 +148,7 @@ pushd ClassicPress/
 			-m "Nightly build $BUILD_TAG"
 		GIT_COMMITTER_NAME='ClassyBot' GIT_COMMITTER_EMAIL='bots@classicpress.net' \
 			GIT_AUTHOR_NAME='ClassyBot' GIT_AUTHOR_EMAIL='bots@classicpress.net' \
-			git tag -u 0783B23F "$BUILD_TAG" -m "Nightly build tag $BUILD_TAG"
+			git tag -u "$NIGHTLY_KEY" "$BUILD_TAG" -m "Nightly build tag $BUILD_TAG"
 
 		# Push the commit and the tag
 		set +x

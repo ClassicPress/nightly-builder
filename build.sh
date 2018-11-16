@@ -69,7 +69,9 @@ pushd ClassicPress/
 		GIT_COMMITTER_NAME='ClassyBot' GIT_COMMITTER_EMAIL='bots@classicpress.net' \
 			git commit --author 'ClassyBot <bots@classicpress.net>' \
 			-m "Nightly migration build $BUILD_TAG"
-		git tag "$BUILD_TAG"
+		GIT_COMMITTER_NAME='ClassyBot' GIT_COMMITTER_EMAIL='bots@classicpress.net' \
+			GIT_AUTHOR_NAME='ClassyBot' GIT_AUTHOR_EMAIL='bots@classicpress.net' \
+			git tag -u 0783B23F "$BUILD_TAG" -m "Nightly migration build tag $BUILD_TAG"
 		# Push the commit and the tag
 		set +x
 		echo "+ git push origin migration"
@@ -143,7 +145,9 @@ pushd ClassicPress/
 		GIT_COMMITTER_NAME='ClassyBot' GIT_COMMITTER_EMAIL='bots@classicpress.net' \
 			git commit --author 'ClassyBot <bots@classicpress.net>' \
 			-m "Nightly build $BUILD_TAG"
-		git tag "$BUILD_TAG"
+		GIT_COMMITTER_NAME='ClassyBot' GIT_COMMITTER_EMAIL='bots@classicpress.net' \
+			GIT_AUTHOR_NAME='ClassyBot' GIT_AUTHOR_EMAIL='bots@classicpress.net' \
+			git tag -u 0783B23F "$BUILD_TAG" -m "Nightly build tag $BUILD_TAG"
 
 		# Push the commit and the tag
 		set +x

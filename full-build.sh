@@ -10,14 +10,24 @@
 		exit 1
 	fi
 
-	"$(dirname "$0")/build-step1.sh" "$@"
+	cd "$(dirname "$0")"
+
+	for gh_repo in ClassicPress/ClassicPress ClassyBot/ClassicPress-nightly; do
+		user="$(echo "$gh_repo" | cut -d/ -f1)"
+		repo="$(echo "$gh_repo" | cut -d/ -f2)"
+		if ! [ -d "$repo/.git" ]; then
+			git clone "https://github.com/$user/$repo" "$repo"
+		fi
+	done
+
+	./build-step1.sh "$@"
 	code=$?
 	echo
 	echo "Build exit code: $code"
 
 	if [ $code -eq 0 ]; then
 		echo
-		. "$(dirname "$0")/config.sh"
+		. config.sh
 		echo "Running upgrade API script:"
 		echo
 		"$UPGRADE_API_SCRIPT"

@@ -1,24 +1,25 @@
 #!/usr/bin/env bash
 
 (
+	if ! [ -x "$UPGRADE_API_SCRIPT" ]; then
+		echo "Upgrade API script not found:"
+		echo "'$UPGRADE_API_SCRIPT'"
+		exit 1
+	fi
+
 	"$(dirname "$0")/build.sh" "$@"
 	code=$?
 	echo
-	echo "Exit code: $code"
+	echo "Build exit code: $code"
 
 	if [ $code -eq 0 ]; then
 		echo
 		. "$(dirname "$0")/config.sh"
-		if [ -x "$UPGRADE_API_SCRIPT" ]; then
-			echo "Running upgrade API script:"
-			echo
-			"$UPGRADE_API_SCRIPT"
-			code=$?
-			echo
-			echo "Exit code: $code"
-		else
-			echo "Upgrade API script not found:"
-			echo "'$UPGRADE_API_SCRIPT'"
-		fi
+		echo "Running upgrade API script:"
+		echo
+		"$UPGRADE_API_SCRIPT"
+		code=$?
+		echo
+		echo "Upgrade API script exit code: $code"
 	fi
 ) > /tmp/nightly-build.log 2>&1

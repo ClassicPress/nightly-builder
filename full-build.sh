@@ -7,7 +7,7 @@
 		exit 1
 	fi
 
-	"$(dirname "$0")/build.sh" "$@"
+	"$(dirname "$0")/build-step1.sh" "$@"
 	code=$?
 	echo
 	echo "Build exit code: $code"

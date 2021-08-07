@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 (
+	set -e
+	set -x
+
 	if ! [ -x "$UPGRADE_API_SCRIPT" ]; then
 		echo "Upgrade API script not found:"
 		echo "'$UPGRADE_API_SCRIPT'"

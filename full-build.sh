@@ -4,13 +4,14 @@
 	set -e
 	set -x
 
+	cd "$(dirname "$0")"
+	. config.sh
+
 	if ! [ -x "$UPGRADE_API_SCRIPT" ]; then
 		echo "Upgrade API script not found:"
 		echo "'$UPGRADE_API_SCRIPT'"
 		exit 1
 	fi
-
-	cd "$(dirname "$0")"
 
 	for gh_repo in ClassicPress/ClassicPress ClassyBot/ClassicPress-nightly; do
 		user="$(echo "$gh_repo" | cut -d/ -f1)"
@@ -27,7 +28,6 @@
 
 	if [ $code -eq 0 ]; then
 		echo
-		. config.sh
 		echo "Running upgrade API script:"
 		echo
 		"$UPGRADE_API_SCRIPT"

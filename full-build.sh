@@ -21,6 +21,7 @@
 		fi
 	done
 
+	set +e
 	./build-step1.sh "$@"
 	code=$?
 	echo

@@ -3,17 +3,17 @@
 # Exit on error
 set -e
 
+# Show commands as they are executed
+set -x
+
 # Verify that the server has its timezone set to UTC
-date | grep ' UTC '
+date | grep -P ' UTC(\s|$)'
 
 cd "$(dirname "$0")"
 
 . config.sh
 PUSH_URL="https://ClassyBot:${GITHUB_API_TOKEN}@github.com/ClassyBot/ClassicPress-nightly"
 NIGHTLY_KEY="A467BA67"
-
-# Show commands as they are executed
-set -x
 
 pushd ClassicPress-nightly/
 	git reset --hard

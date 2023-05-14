@@ -12,18 +12,18 @@ date | grep -P ' UTC(\s|$)'
 cd "$(dirname "$0")"
 
 . config.sh
-PUSH_URL="https://ClassyBot:${GITHUB_API_TOKEN}@github.com/ClassyBot/ClassicPress-nightly"
+PUSH_URL="https://ClassyBot:${GITHUB_API_TOKEN}@github.com/ClassyBot/ClassicPress-nightly-v2"
 NIGHTLY_KEY="A467BA67"
 
-pushd ClassicPress-nightly/
+pushd ClassicPress-nightly-v2/
 	git reset --hard
 	git fetch origin
 	git fetch origin --tags
-	git checkout origin/migration -B migration
-	git checkout origin/master -B master
+	#git checkout origin/migration -B migration
+	git checkout origin/develop -B develop
 popd
 
-pushd ClassicPress/
+pushd ClassicPress-v2/
 
 	# Reset everything
 	rm -rf build/ build-migration/
@@ -33,7 +33,7 @@ pushd ClassicPress/
 	rm -rf node_modules/
 
 	# Store the commit URL of the development repo
-	DEV_COMMIT_URL="https://github.com/ClassicPress/ClassicPress/commit/$(git rev-parse HEAD)"
+	DEV_COMMIT_URL="https://github.com/ClassicPress/ClassicPress-v2/commit/$(git rev-parse HEAD)"
 
 	# Set up node version
 	set +x
@@ -137,7 +137,7 @@ pushd ClassicPress/
 		BUILD_TAG=$(grep '^\$cp_version' wp-includes/version.php | cut -d"'" -f2)
 
 		# Set up the git repository
-		cp -ar ../../ClassicPress-nightly/.git/ .
+		cp -ar ../../ClassicPress-nightly-v2/.git/ .
 
 		# Create the commit and the tag
 		git add --all .
@@ -150,8 +150,8 @@ pushd ClassicPress/
 
 		# Push the commit and the tag
 		set +x
-		echo "+ git push origin master"
-		git push "$PUSH_URL" master
+		echo "+ git push origin develop"
+		git push "$PUSH_URL" develop
 		echo "+ git push origin $BUILD_TAG"
 		git push "$PUSH_URL" "$BUILD_TAG"
 		set -x
@@ -170,7 +170,7 @@ pushd ClassicPress/
 			}" \
 			--output release.json \
 			--write-out '%{http_code}' \
-			https://api.github.com/repos/ClassyBot/ClassicPress-nightly/releases \
+			https://api.github.com/repos/ClassyBot/ClassicPress-nightly-v2/releases \
 		)
 		if [ "$RESPONSE_CODE" -ne 201 ]; then
 			echo "Failed to create release: HTTP $RESPONSE_CODE"
@@ -181,10 +181,10 @@ pushd ClassicPress/
 	popd
 popd
 
-pushd ClassicPress-nightly/
+pushd ClassicPress-nightly-v2/
 	git reset --hard
 	git fetch origin
 	git fetch origin --tags
-	git checkout origin/migration -B migration
-	git checkout origin/master -B master
+	#git checkout origin/migration -B migration
+	git checkout origin/develop -B develop
 popd

@@ -12,10 +12,10 @@ date | grep -P ' UTC(\s|$)'
 cd "$(dirname "$0")"
 
 . config.sh
-PUSH_URL="https://ClassyBot:${GITHUB_API_TOKEN}@github.com/ClassyBot/ClassicPress-nightly-v2"
+PUSH_URL="https://ClassyBot:${GITHUB_API_TOKEN}@github.com/ClassyBot/ClassicPress-v2-nightly"
 NIGHTLY_KEY="A467BA67"
 
-pushd ClassicPress-nightly-v2/
+pushd ClassicPress-v2-nightly/
 	git reset --hard
 	git fetch origin
 	git fetch origin --tags
@@ -55,7 +55,7 @@ pushd ClassicPress-v2/
 		BUILD_TAG=$(grep '^\$cp_version' wp-includes/version.php | cut -d"'" -f2)
 
 		# Set up the git repository
-		cp -ar ../../ClassicPress-nightly-v2/.git/ .
+		cp -ar ../../ClassicPress-v2-nightly/.git/ .
 
 		# Create the commit and the tag
 		git add --all .
@@ -88,7 +88,7 @@ pushd ClassicPress-v2/
 			}" \
 			--output release.json \
 			--write-out '%{http_code}' \
-			https://api.github.com/repos/ClassyBot/ClassicPress-nightly-v2/releases \
+			https://api.github.com/repos/ClassyBot/ClassicPress-v2-nightly/releases \
 		)
 		if [ "$RESPONSE_CODE" -ne 201 ]; then
 			echo "Failed to create release: HTTP $RESPONSE_CODE"
@@ -99,7 +99,7 @@ pushd ClassicPress-v2/
 	popd
 popd
 
-pushd ClassicPress-nightly-v2/
+pushd ClassicPress-v2-nightly/
 	git reset --hard
 	git fetch origin
 	git fetch origin --tags

@@ -13,7 +13,6 @@ cd "$(dirname "$0")"
 
 . config.sh
 PUSH_URL="https://ClassyBot:${GITHUB_API_TOKEN}@github.com/ClassyBot/ClassicPress-v2-nightly"
-NIGHTLY_KEY="A467BA67"
 
 pushd ClassicPress-v2-nightly/
 	git reset --hard
@@ -64,7 +63,7 @@ pushd ClassicPress-v2/
 			-m "Nightly build $BUILD_TAG"
 		GIT_COMMITTER_NAME='ClassyBot' GIT_COMMITTER_EMAIL='bots@classicpress.net' \
 			GIT_AUTHOR_NAME='ClassyBot' GIT_AUTHOR_EMAIL='bots@classicpress.net' \
-			git tag -u "$NIGHTLY_KEY" "$BUILD_TAG" -m "Nightly build tag $BUILD_TAG"
+			git tag "$BUILD_TAG" -m "Nightly build tag $BUILD_TAG"
 
 		# Push the commit and the tag
 		set +x

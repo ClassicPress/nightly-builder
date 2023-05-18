@@ -26,4 +26,14 @@
 	code=$?
 	echo
 	echo "Build exit code: $code"
+
+	if [ $code -eq 0 ]; then
+		echo
+		echo "Running upgrade API script:"
+		echo
+		"$UPGRADE_API_SCRIPT"
+		code=$?
+		echo
+		echo "Upgrade API script exit code: $code"
+	fi
 ) > /tmp/nightly-build.log 2>&1

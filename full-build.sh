@@ -13,7 +13,7 @@
 		exit 1
 	fi
 
-	for gh_repo in ClassicPress/ClassicPress-v2 ClassyBot/ClassicPress-v2-nightly; do
+	for gh_repo in ClassicPress/ClassicPress ClassyBot/ClassicPress-nightly ClassicPress/ClassicPress-v2 ClassyBot/ClassicPress-v2-nightly; do
 		user="$(echo "$gh_repo" | cut -d/ -f1)"
 		repo="$(echo "$gh_repo" | cut -d/ -f2)"
 		if ! [ -d "$repo/.git" ]; then

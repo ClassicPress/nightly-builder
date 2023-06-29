@@ -13,7 +13,7 @@
 		exit 1
 	fi
 
-	for gh_repo in ClassicPress/ClassicPress ClassyBot/ClassicPress-nightly; do
+	for gh_repo in ClassicPress/ClassicPress ClassyBot/ClassicPress-nightly ClassicPress/ClassicPress-v2 ClassyBot/ClassicPress-v2-nightly; do
 		user="$(echo "$gh_repo" | cut -d/ -f1)"
 		repo="$(echo "$gh_repo" | cut -d/ -f2)"
 		if ! [ -d "$repo/.git" ]; then
@@ -22,12 +22,17 @@
 	done
 
 	set +e
-	./build-step1.sh "$@"
+	./build-step-v1.sh "$@"
 	code=$?
 	echo
-	echo "Build exit code: $code"
+	echo "Build v1 exit code: $code"
 
-	if [ $code -eq 0 ]; then
+	./build-step-v2.sh "$@"
+	code2=$?
+	echo
+	echo "Build v2 exit code: $code1"
+
+	if [ $code -eq 0 ] && [ $code2 -eq 0 ]; then
 		echo
 		echo "Running upgrade API script:"
 		echo

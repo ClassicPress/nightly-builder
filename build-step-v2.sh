@@ -34,9 +34,6 @@ pushd ClassicPress-v2/
 	# Store the commit URL of the development repo
 	DEV_COMMIT_URL="https://github.com/ClassicPress/ClassicPress-v2/commit/$(git rev-parse HEAD)"
 
-	# API server needs lover version of NVM
-	echo '16.19.0' > .nvmrc
-
 	# Set up node version
 	set +x
 	echo 'loading nvm and node'

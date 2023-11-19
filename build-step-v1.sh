@@ -12,9 +12,9 @@ date | grep -P ' UTC(\s|$)'
 cd "$(dirname "$0")"
 
 . config.sh
-PUSH_URL="https://ClassyBot:${GITHUB_API_TOKEN}@github.com/ClassyBot/ClassicPress-nightly"
+PUSH_URL="https://ClassyBot:${GITHUB_API_TOKEN}@github.com/ClassyBot/ClassicPress-v1-nightly"
 
-pushd ClassicPress-nightly/
+pushd ClassicPress-v1-nightly/
 	git reset --hard
 	git fetch origin
 	git fetch origin --tags
@@ -22,7 +22,7 @@ pushd ClassicPress-nightly/
 	git checkout origin/master -B master
 popd
 
-pushd ClassicPress/
+pushd ClassicPress-v1/
 
 	# Reset everything
 	rm -rf build/ build-migration/
@@ -32,7 +32,7 @@ pushd ClassicPress/
 	rm -rf node_modules/
 
 	# Store the commit URL of the development repo
-	DEV_COMMIT_URL="https://github.com/ClassicPress/ClassicPress/commit/$(git rev-parse HEAD)"
+	DEV_COMMIT_URL="https://github.com/ClassicPress/ClassicPress-v1/commit/$(git rev-parse HEAD)"
 
 	# Set up node version
 	set +x
@@ -61,7 +61,7 @@ pushd ClassicPress/
 		BUILD_TAG=$(grep '^\$cp_version' wordpress/wp-includes/version.php | cut -d"'" -f2)
 
 		# Set up the git repository
-		cp -ar ../../ClassicPress-nightly/.git/ .
+		cp -ar ../../ClassicPress-v1-nightly/.git/ .
 		# Check out `migration` without touching the working tree
 		git symbolic-ref HEAD refs/heads/migration
 		# Create the commit and the tag
@@ -81,7 +81,7 @@ pushd ClassicPress/
 		set -x
 
 		# Build the zip file
-		BUILD_FILENAME="ClassicPress-nightly-$(echo "$BUILD_TAG" | tr '+' '-').zip"
+		BUILD_FILENAME="ClassicPress-v1-nightly-$(echo "$BUILD_TAG" | tr '+' '-').zip"
 		zip "$BUILD_FILENAME" -9 -r wordpress/
 
 		# Create the release using the GitHub API
@@ -98,7 +98,7 @@ pushd ClassicPress/
 			}" \
 			--output release.json \
 			--write-out '%{http_code}' \
-			https://api.github.com/repos/ClassyBot/ClassicPress-nightly/releases \
+			https://api.github.com/repos/ClassyBot/ClassicPress-v1-nightly/releases \
 		)
 		if [ "$RESPONSE_CODE" -ne 201 ]; then
 			echo "Failed to create release: HTTP $RESPONSE_CODE"
@@ -136,7 +136,7 @@ pushd ClassicPress/
 		BUILD_TAG=$(grep '^\$cp_version' wp-includes/version.php | cut -d"'" -f2)
 
 		# Set up the git repository
-		cp -ar ../../ClassicPress-nightly/.git/ .
+		cp -ar ../../ClassicPress-v1-nightly/.git/ .
 
 		# Create the commit and the tag
 		git add --all .
@@ -169,7 +169,7 @@ pushd ClassicPress/
 			}" \
 			--output release.json \
 			--write-out '%{http_code}' \
-			https://api.github.com/repos/ClassyBot/ClassicPress-nightly/releases \
+			https://api.github.com/repos/ClassyBot/ClassicPress-v1-nightly/releases \
 		)
 		if [ "$RESPONSE_CODE" -ne 201 ]; then
 			echo "Failed to create release: HTTP $RESPONSE_CODE"
@@ -180,7 +180,7 @@ pushd ClassicPress/
 	popd
 popd
 
-pushd ClassicPress-nightly/
+pushd ClassicPress-v1-nightly/
 	git reset --hard
 	git fetch origin
 	git fetch origin --tags

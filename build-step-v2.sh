@@ -22,7 +22,7 @@ pushd ClassicPress-v2-nightly/
 	git checkout origin/develop -B develop
 popd
 
-pushd ClassicPress-v2/
+pushd ClassicPress/
 
 	# Reset everything
 	rm -rf build/ build-migration/
@@ -32,7 +32,7 @@ pushd ClassicPress-v2/
 	rm -rf node_modules/
 
 	# Store the commit URL of the development repo
-	DEV_COMMIT_URL="https://github.com/ClassicPress/ClassicPress-v2/commit/$(git rev-parse HEAD)"
+	DEV_COMMIT_URL="https://github.com/ClassicPress/ClassicPress/commit/$(git rev-parse HEAD)"
 
 	# Set up node version
 	set +x
@@ -81,7 +81,7 @@ pushd ClassicPress-v2/
 		set -x
 
 		# Build the zip file
-		BUILD_FILENAME="ClassicPress-v2-nightly-$(echo "$BUILD_TAG" | tr '+' '-').zip"
+		BUILD_FILENAME="ClassicPress-nightly-$(echo "$BUILD_TAG" | tr '+' '-').zip"
 		zip "$BUILD_FILENAME" -9 -r wordpress/
 
 		# Create the release using the GitHub API

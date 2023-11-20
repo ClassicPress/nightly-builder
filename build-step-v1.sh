@@ -81,7 +81,7 @@ pushd ClassicPress-v1/
 		set -x
 
 		# Build the zip file
-		BUILD_FILENAME="ClassicPress-v1-nightly-$(echo "$BUILD_TAG" | tr '+' '-').zip"
+		BUILD_FILENAME="ClassicPress-nightly-$(echo "$BUILD_TAG" | tr '+' '-').zip"
 		zip "$BUILD_FILENAME" -9 -r wordpress/
 
 		# Create the release using the GitHub API

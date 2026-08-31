@@ -41,6 +41,9 @@ pushd ClassicPress/
 	nvm use || nvm install
 	set -x
 
+	# Skip certificate update in nightly builder
+	sed -i "/^\t\t\t'certificates:upgrade',$/d" Gruntfile.js
+
 	# Install dependencies and generate a nightly build
 	npm install
 	CLASSICPRESS_NIGHTLY=true ./node_modules/.bin/grunt build
